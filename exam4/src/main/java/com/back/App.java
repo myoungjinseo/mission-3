@@ -4,6 +4,7 @@ import com.back.dto.request.WiseSayingRequest;
 import com.back.dto.request.WiseSayingUpdateResponse;
 import com.back.dto.response.WiseSayingResponse;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Scanner;
 
@@ -11,7 +12,7 @@ public class App {
 
     Scanner sc = new Scanner(System.in);
     private final WiseSayingController wiseSayingController = new WiseSayingController();
-    public void run() {
+    public void run() throws IOException {
         String command = "";
         System.out.println("== 명언 앱 ==");
         while (!command.equals("종료")){
@@ -56,5 +57,9 @@ public class App {
                 System.out.println("명령어가 존재하지 않습니다.");
             }
         }
+        System.out.println("프로그램 다시 시작\n");
+        System.out.println("명령) 목록");
+        wiseSayingController.getWiseSayings();
+        wiseSayingController.createWiseSayingJson();
     }
 }

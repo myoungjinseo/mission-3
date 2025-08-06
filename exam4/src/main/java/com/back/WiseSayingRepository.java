@@ -47,4 +47,9 @@ public class WiseSayingRepository {
     public void update(int id, WiseSaying wiseSaying) {
         wiseSayings.set(id, wiseSaying);
     }
+
+    public List<WiseSaying> findAll() {
+        return wiseSayings;
+    }
+
 }

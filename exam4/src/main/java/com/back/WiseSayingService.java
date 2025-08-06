@@ -5,10 +5,16 @@ import com.back.dto.request.WiseSayingUpdateResponse;
 import com.back.dto.response.FindIdResponse;
 import com.back.dto.response.WiseSayingResponse;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.List;
 
 public class WiseSayingService {
+
     private final WiseSayingRepository wiseSayingRepository = new WiseSayingRepository();
+
+    private final String PATH = "src/main/java/com/back/db/wiseSaying/";
 
     public int createWiseSaying(WiseSayingRequest request) {
         int lastId = 0;
@@ -57,5 +63,37 @@ public class WiseSayingService {
 
     public void updateWiseSaying(WiseSayingUpdateResponse request) {
         wiseSayingRepository.update(request.findId(),request.wiseSaying());
+    }
+
+    public void initializeFiles() {
+        File file = new File(PATH);
+        if (!file.exists() || !file.isDirectory()) return;
+
+        File[] files = file.listFiles();
+        if (files == null) return;
+
+        for (File f : files) {
+            if (f.isFile()) f.delete();
+        }
+    }
+
+    public void createWiseSayingJson() throws IOException {
+        List<WiseSaying> wiseSayingList = wiseSayingRepository.findAll();
+        for(WiseSaying wiseSaying : wiseSayingList){
+            StringBuilder sb = new StringBuilder();
+            String file = PATH + wiseSaying.getId() + ".json";
+            FileWriter fwJson = new FileWriter(file);
+            sb.append("{\n");
+            sb.append("  \"id\": ").append(wiseSaying.getId()).append(",\n");
+            sb.append("  \"content\": \"").append(wiseSaying.getContent()).append("\",\n");
+            sb.append("  \"author\": \"").append(wiseSaying.getAuthor()).append("\"\n");
+            sb.append("}");
+            fwJson.write(sb.toString());
+            fwJson.close();
+        }
+        FileWriter fwTxt = new FileWriter(PATH + "lastId.txt");
+        int lastId = wiseSayingRepository.findLastId();
+        fwTxt.write(String.valueOf(lastId));
+        fwTxt.close();
     }
 }

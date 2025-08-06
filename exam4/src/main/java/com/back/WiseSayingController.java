@@ -4,6 +4,7 @@ import com.back.dto.request.WiseSayingRequest;
 import com.back.dto.request.WiseSayingUpdateResponse;
 import com.back.dto.response.WiseSayingResponse;
 
+import java.io.IOException;
 import java.util.List;
 
 public class WiseSayingController {
@@ -29,4 +30,11 @@ public class WiseSayingController {
         wiseSayingService.updateWiseSaying(request);
     }
 
+    public void initializeFiles() {
+        wiseSayingService.initializeFiles();
+    }
+
+    public void createWiseSayingJson() throws IOException {
+        wiseSayingService.createWiseSayingJson();
+    }
 }
