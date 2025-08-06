@@ -14,4 +14,8 @@ public class WiseSayingController {
     public List<WiseSaying> getWiseSayings() {
         return wiseSayingService.getWiseSayings();
     }
+
+    public String deleteWiseSaying(String command) {
+        return wiseSayingService.deleteWiseSaying(command);
+    }
 }

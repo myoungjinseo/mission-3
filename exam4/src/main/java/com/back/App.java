@@ -32,6 +32,9 @@ public class App {
                 for (WiseSaying wiseSaying : response) {
                     System.out.println("%d / %s / %s".formatted(wiseSaying.getId(), wiseSaying.getAuthor(), wiseSaying.getContent()));
                 }
+            } else if (command.contains("삭제?id=")) {
+                String response = wiseSayingController.deleteWiseSaying(command);
+                System.out.println(response);
             } else {
                 System.out.println("명령어가 존재하지 않습니다.");
             }

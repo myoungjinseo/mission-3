@@ -19,4 +19,18 @@ public class WiseSayingService {
     public List<WiseSaying> getWiseSayings() {
         return wiseSayingRepository.findAllByOrderByIdDesc();
     }
+
+    public String deleteWiseSaying(String command) {
+        int deleteId = getId(command);
+        int findId = wiseSayingRepository.findIdById(deleteId);
+        if(findId == -1)
+            return "%d번 명언은 존재하지 않습니다.".formatted(deleteId);
+        wiseSayingRepository.deleteById(findId);
+        return "%d번 명언이 삭제되었습니다.".formatted(deleteId);
+    }
+
+    public int getId(String command) {
+        String[] arr = command.split("=");
+        return Integer.parseInt(arr[1]);
+    }
 }
