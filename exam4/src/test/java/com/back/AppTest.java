@@ -1,10 +1,11 @@
 package com.back;
 
 import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 
 class AppTest {
 
-    public static String run(String in) {
+    public static String run(String in) throws IOException {
 
         // app.run 실행되는 동안 콘솔 출력을 막아준다.
         ByteArrayOutputStream out = TestUtil.setOutToByteArray();
@@ -15,5 +16,15 @@ class AppTest {
         TestUtil.clearSetOutToByteArray(out);
 
         return out.toString();
+    }
+
+    public static void clear() {
+        WiseSayingController controller = new WiseSayingController();
+        controller.initializeFiles();
+    }
+
+    public static void build() {
+        WiseSayingController controller = new WiseSayingController();
+
     }
 }

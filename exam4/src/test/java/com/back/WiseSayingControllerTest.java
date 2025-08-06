@@ -1,18 +1,33 @@
 package com.back;
 
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 
+import java.io.IOException;
+
+import static com.back.AppTest.run;
 import static org.assertj.core.api.Assertions.assertThat;
 
 class WiseSayingControllerTest {
 
+    @BeforeEach
+    void beforeEach() {
+        AppTest.clear();
+    }
+
+    @AfterEach
+    void afterEach() {
+        AppTest.build();
+    }
+
     @Test
     @DisplayName("등록")
-    void createWiseSayingTest(){
+    void createWiseSayingTest() throws IOException {
 
-        final String out = AppTest.run("""
+        final String out = run("""
                 등록
                 현재를 사랑하라.
                 작자미상
@@ -27,9 +42,9 @@ class WiseSayingControllerTest {
 
     @Test
     @DisplayName("목록")
-    void getWiseSayingTest(){
+    void getWiseSayingTest() throws IOException {
 
-        final String out = AppTest.run(
+        final String out = run(
                 """
                 등록
                 현재를 사랑하라.
@@ -50,8 +65,8 @@ class WiseSayingControllerTest {
 
     @Test
     @DisplayName("삭제")
-    void deleteWiseSayingTest(){
-        final String out = AppTest.run(
+    void deleteWiseSayingTest() throws IOException {
+        final String out = run(
                 """
                       등록
                       현재를 사랑하라.
@@ -72,8 +87,8 @@ class WiseSayingControllerTest {
 
     @Test
     @DisplayName("수정")
-    void updateWiseSayingTest(){
-        final String out = AppTest.run(
+    void updateWiseSayingTest() throws IOException {
+        final String out = run(
                 """
                       등록
                       현재를 사랑하라.
