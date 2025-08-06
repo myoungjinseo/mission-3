@@ -1,6 +1,8 @@
 package com.back;
 
 import com.back.dto.request.WiseSayingRequest;
+import com.back.dto.request.WiseSayingUpdateResponse;
+import com.back.dto.response.WiseSayingResponse;
 
 import java.util.List;
 import java.util.Scanner;
@@ -20,7 +22,7 @@ public class App {
                 String content = sc.nextLine();
                 System.out.print("작가 : ");
                 String author = sc.nextLine();
-                WiseSayingRequest request = new WiseSayingRequest(content, author);
+                WiseSayingRequest request = WiseSayingRequest.of(content, author);
 
                 int id = wiseSayingController.createWiseSaying(request);
 
@@ -35,6 +37,21 @@ public class App {
             } else if (command.contains("삭제?id=")) {
                 String response = wiseSayingController.deleteWiseSaying(command);
                 System.out.println(response);
+            } else if (command.contains("수정?id=")) {
+                WiseSayingResponse response = wiseSayingController.getWiseSayingById(command);
+                if(response.findId() != -1){
+                    System.out.println("명언(기존) : " + response.content());
+                    System.out.print("명언 : ");
+                    String updateContent = sc.nextLine();
+                    System.out.println("작가(기존) : " + response.author());
+                    System.out.print("작가 : ");
+                    String updateAuthor = sc.nextLine();
+                    WiseSaying updatewiseSaying = new WiseSaying(response.id(), updateContent,updateAuthor);
+                    WiseSayingUpdateResponse request = WiseSayingUpdateResponse.of(updatewiseSaying, response.findId());
+                    wiseSayingController.updateWiseSaying(request);
+                } else {
+                    System.out.println(response.msg());
+                }
             } else {
                 System.out.println("명령어가 존재하지 않습니다.");
             }

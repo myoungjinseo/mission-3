@@ -1,6 +1,8 @@
 package com.back;
 
 import com.back.dto.request.WiseSayingRequest;
+import com.back.dto.request.WiseSayingUpdateResponse;
+import com.back.dto.response.WiseSayingResponse;
 
 import java.util.List;
 
@@ -18,4 +20,13 @@ public class WiseSayingController {
     public String deleteWiseSaying(String command) {
         return wiseSayingService.deleteWiseSaying(command);
     }
+
+    public WiseSayingResponse getWiseSayingById(String command) {
+        return wiseSayingService.getWiseSayingById(command);
+    }
+
+    public void updateWiseSaying(WiseSayingUpdateResponse request) {
+        wiseSayingService.updateWiseSaying(request);
+    }
+
 }

@@ -36,4 +36,15 @@ public class WiseSayingRepository {
     public void deleteById(int id) {
         wiseSayings.remove(id);
     }
+
+    public WiseSaying findById(int id) {
+        String author = wiseSayings.get(id).getAuthor();
+        String content = wiseSayings.get(id).getContent();
+        int WiseSayingId = wiseSayings.get(id).getId();
+        return new WiseSaying(WiseSayingId, content, author);
+    }
+
+    public void update(int id, WiseSaying wiseSaying) {
+        wiseSayings.set(id, wiseSaying);
+    }
 }
