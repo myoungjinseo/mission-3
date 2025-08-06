@@ -37,4 +37,8 @@ public class WiseSayingController {
     public void createWiseSayingJson() throws IOException {
         wiseSayingService.createWiseSayingJson();
     }
+
+    public String createAllWiseSayingJson() throws IOException {
+        return wiseSayingService.createAllWiseSayingJson();
+    }
 }

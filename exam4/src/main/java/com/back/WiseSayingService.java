@@ -5,6 +5,7 @@ import com.back.dto.request.WiseSayingUpdateResponse;
 import com.back.dto.response.FindIdResponse;
 import com.back.dto.response.WiseSayingResponse;
 
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -95,5 +96,29 @@ public class WiseSayingService {
         int lastId = wiseSayingRepository.findLastId();
         fwTxt.write(String.valueOf(lastId));
         fwTxt.close();
+    }
+
+    public String createAllWiseSayingJson() throws IOException {
+        StringBuilder sb = new StringBuilder();
+        List<WiseSaying> wiseSayingList = wiseSayingRepository.findAll();
+        String file = String.format(PATH + "data.json");
+        FileWriter fw = new FileWriter(file);
+        BufferedWriter bw = new BufferedWriter(fw);
+        int lastId = wiseSayingRepository.findLastId();
+        sb.append("[\n");
+        for(WiseSaying wiseSaying : wiseSayingList){
+            sb.append("  {\n");
+            sb.append("    \"id\": ").append(wiseSaying.getId()).append(",\n");
+            sb.append("    \"content\": \"").append(wiseSaying.getContent()).append("\",\n");
+            sb.append("    \"author\": \"").append(wiseSaying.getAuthor()).append("\"\n");
+            sb.append("  }");
+            if(lastId != wiseSaying.getId()){
+                sb.append(",\n");
+            }
+        }
+        sb.append("\n]");
+        bw.write(sb.toString());
+        bw.close();
+        return "data.json 파일의 내용이 갱신되었습니다.";
     }
 }
